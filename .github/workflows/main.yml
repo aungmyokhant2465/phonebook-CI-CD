@@ -3,9 +3,9 @@ name: Deploy
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:    
-    branches: [master]    
+    branches: [main]    
     types: [opened, synchronize]
 
 jobs:
@@ -14,20 +14,29 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+      - uses: actions/setup-node@v1
         with:
-          heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "intense-bayou-23133" #Must be unique in Heroku
-          heroku_email: "aungmyokhant2465@gmail.com"
-          healthcheck: "https://intense-bayou-23133.herokuapp.com/health"
-          checkstring: "ok"
-          rollbackonhealthcheckfailed: true
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: '0'
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.36.0
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WITH_V: true
-          DEFAULT_BUMP: patch
+          node-version: '16.x'
+      - name: npm install 
+        run: npm install
+      - name: lint
+        run: npm run lint
+    # steps:
+    #   - uses: actions/checkout@v2
+    #   - uses: akhileshns/heroku-deploy@v3.12.12 # This is the action
+    #     with:
+    #       heroku_api_key: ${{secrets.HEROKU_API_KEY}}
+    #       heroku_app_name: "intense-bayou-23133" #Must be unique in Heroku
+    #       heroku_email: "aungmyokhant2465@gmail.com"
+    #       healthcheck: "https://intense-bayou-23133.herokuapp.com/health"
+    #       checkstring: "ok"
+    #       rollbackonhealthcheckfailed: true
+    #   - uses: actions/checkout@v2
+    #     with:
+    #       fetch-depth: '0'
+    #   - name: Bump version and push tag
+    #     uses: anothrNick/github-tag-action@1.36.0
+    #     env:
+    #       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #       WITH_V: true
+    #       DEFAULT_BUMP: patch
