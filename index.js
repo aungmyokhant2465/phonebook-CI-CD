@@ -150,6 +150,14 @@ app.put('/api/persons/:id', (request, response, next) => {
         })
 })
 
+app.get('/health', (request, response) => {
+    response.send('ok')
+})
+
+app.get('/version', (request, response) => {
+    response.send('10')
+})
+
 const unknownEndpoint = (request, response) => {
     response.status(404).send({ error: 'unknown endpoint' })
 }
