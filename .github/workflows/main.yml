@@ -30,7 +30,7 @@ jobs:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
           heroku_app_name: "gentle-harbor-76146" #Must be unique in Heroku
           heroku_email: "aungmyokhant2465@gmail.com"
-          healthcheck: "https://gentle-harbor-76146.herokuapp.com//health"
+          healthcheck: "https://gentle-harbor-76146.herokuapp.com/health"
           checkstring: "ok"
           rollbackonhealthcheckfailed: true
       - uses: actions/checkout@v2
