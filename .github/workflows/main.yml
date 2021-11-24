@@ -20,8 +20,6 @@ jobs:
         run: npm install
       - name: lint
         run: npm run lint
-
-jobs:
   deploy:
     if: ${{ github.event_name == 'push' && !contains(join(github.event.commits.*.message, ' '), '#skip') }}
     runs-on: ubuntu-latest
